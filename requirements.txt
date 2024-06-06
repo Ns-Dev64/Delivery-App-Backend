@@ -1,0 +1,7 @@
+bcrypt
+dotenv
+express-async-handler
+express-validator
+jsonwebtoken
+mongoose
+nodemon
