@@ -68,13 +68,29 @@ const logged_in=async_handler(async(req,res)=>{
     res.status(200).json(req.user)
 })
 
-const getStaff=async_handler(async(req,res)=>{
-    const data=await userStaff.find()
-    if(!data){
-        res.status(400)
-        throw new Error("no data")
-    }
-    res.status(200).json(data)
-})
 
-module.exports={registerStaff,getStaff,logged_in,signStaff}
+const updateStaff = async_handler(async (req, res) => {
+    try {
+      const staff_update = await userStaff.findByIdAndUpdate(
+        req.user.id,
+        req.body,
+        { new: true }
+      );
+      res.status(200).json({message:"success"});
+    } catch (err) {
+      res.status(401);
+      throw new Error("Error occured whilst upating data");
+    }
+  });
+  
+  const deleteStaff=async_handler(async(req,res)=>{
+      const staff_delete=await userStaff.findById(req.user.id)
+      if(!staff_delete){
+          res.status(400)
+          throw new Error("Error occured whilst processing your request")
+      }
+      await staff_delete.deleteOne()
+      res.status(200).json({message:"success"})
+  })
+
+module.exports={registerStaff,logged_in,signStaff,updateStaff,deleteStaff}

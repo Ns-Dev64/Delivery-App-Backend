@@ -20,3 +20,4 @@ app.listen(port, () => {
     });
 
 app.use("/users/",require("./routes/userRoutes"))
+app.use("/customers/",require("./routes/custRoutes"))

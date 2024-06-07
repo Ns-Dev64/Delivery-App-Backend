@@ -1,0 +1,10 @@
+const express=require("express")
+const router=express.Router()
+const {registerCust,signCust,logged_in, updateCust, deleteCust}=require("../controllers/customerController")
+const validate_token=require("../middleware/tokenhandler")
+router.post("/registerCust",registerCust)
+router.post("/signCust",signCust)
+router.post("/loginCust",validate_token,logged_in)
+router.post("/updateCust",validate_token,updateCust)
+router.post("/deleteCust",validate_token,deleteCust)
+module.exports=router
