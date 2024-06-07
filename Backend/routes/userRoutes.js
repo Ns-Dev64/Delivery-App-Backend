@@ -1,0 +1,10 @@
+const express=require("express")
+const router=express.Router()
+const {registerStaff,getStaff,logged_in,signStaff}=require("../controllers/userController")
+const validate_token=require("../middleware/tokenhandler")
+const upload=require("../middleware/uploadHandler")
+router.post("/registerStaff",upload,registerStaff)
+router.get("/getStaff",getStaff)
+router.post("/signStaff",signStaff)
+router.post("/loginStaff",validate_token,logged_in)
+module.exports=router
