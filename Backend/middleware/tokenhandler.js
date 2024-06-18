@@ -2,6 +2,7 @@ const async_handler=require("express-async-handler")
 const jwt=require("jsonwebtoken")
 
 const validate_token=async_handler(async(req,res,next)=>{
+   
      let token
      let auth_header=req.headers.Authorization || req.headers.authorization
      if(auth_header && auth_header.startsWith("Bearer")){
@@ -12,8 +13,8 @@ const validate_token=async_handler(async(req,res,next)=>{
                 throw new Error("User aint authorized")
             }
             req.user=decoded.user
-            req.url='/loginStaff'
-            next()
+            
+            next();
         })
         if(!token){
             res.status(401)
@@ -21,5 +22,7 @@ const validate_token=async_handler(async(req,res,next)=>{
         }
      }
 })
+
+
 
 module.exports=validate_token
