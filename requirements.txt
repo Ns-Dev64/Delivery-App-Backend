@@ -5,3 +5,5 @@ express-validator
 jsonwebtoken
 mongoose
 nodemon
+nodemailer
+crypto
