@@ -5,6 +5,10 @@ const rest_owner=mongoose.Schema({
         type:"String",
         required:true,
     },
+    Email:{
+        type:"String",
+        required:true
+    },
     Password:{
         type:"String",
         required:true,
@@ -22,7 +26,12 @@ const rest_owner=mongoose.Schema({
     },
     Rest_id:{
         type:"String",
-    }
+    },
+    otp: { type: "String" },
+    otpExpires: { type: "Date" }
+},
+{timestamps:true,
+
 })
 
 module.exports=mongoose.model("owner",rest_owner)

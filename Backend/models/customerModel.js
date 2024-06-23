@@ -18,6 +18,8 @@ const customer_schema=mongoose.Schema({
         required:true,
         unique:true
     },
+    otp: { type: "String" },
+    otpExpires: { type: "Date" }
 },
 {
     timestamps:true,

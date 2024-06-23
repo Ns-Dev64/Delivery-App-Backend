@@ -1,6 +1,4 @@
 const async_handler = require("express-async-handler");
-const owner = require("../models/rest_owner");
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -52,5 +50,9 @@ const signOwner = async_handler(async (req, res, next) => {
 const logOwner_in = async_handler(async (req, res) => {
   res.status(200).json(req.user);
 });
+
+
+
+
 
 module.exports = { registerOwner, signOwner, logOwner_in };

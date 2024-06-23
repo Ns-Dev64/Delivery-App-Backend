@@ -34,7 +34,9 @@ const user_schema=mongoose.Schema({
     Photo:{
         type:"String",
         required:true,
-    }
+    },
+    otp: { type: "String" },
+    otpExpires: { type: "Date" }
 },
 {
     timestamps:true,

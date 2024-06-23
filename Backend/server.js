@@ -3,7 +3,7 @@ const dotenv = require("dotenv").config();
 const ConnectDb = require("./config/dbconnect");
 const {errorHandler}  = require("./middleware/errorHandler");
 var bodyParser = require('body-parser');
-
+const request_otp=require("./middleware/emailHandler")
 ConnectDb();
 const app = express();
 const port = process.env.PORT;
@@ -29,3 +29,4 @@ app.listen(port, () => {
 app.use("/users/",require("./routes/userRoutes"))
 app.use("/customers/",require("./routes/custRoutes"))
 app.use("/rest",require("./routes/restRoutes"))
+app.use("/requestOtp",request_otp)
