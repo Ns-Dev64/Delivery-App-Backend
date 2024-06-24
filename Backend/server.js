@@ -3,7 +3,8 @@ const dotenv = require("dotenv").config();
 const ConnectDb = require("./config/dbconnect");
 const {errorHandler}  = require("./middleware/errorHandler");
 var bodyParser = require('body-parser');
-const request_otp=require("./middleware/emailHandler")
+const {request_otp,verif_otp, reset_pass}=require("./middleware/otpandpassHandler")
+const validate_token = require("./middleware/tokenhandler");
 ConnectDb();
 const app = express();
 const port = process.env.PORT;
@@ -29,4 +30,6 @@ app.listen(port, () => {
 app.use("/users/",require("./routes/userRoutes"))
 app.use("/customers/",require("./routes/custRoutes"))
 app.use("/rest",require("./routes/restRoutes"))
-app.use("/requestOtp",request_otp)
+app.use("/requestOtp",validate_token,request_otp)
+app.use("/verifyOtp",validate_token,verif_otp)
+app.use("/resetPass",validate_token,reset_pass)

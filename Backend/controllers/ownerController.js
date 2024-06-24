@@ -1,7 +1,7 @@
 const async_handler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const owner =require("../models/rest_owner")
 const registerOwner = async_handler(async (req, res) => {
   const { FullName, Password, Username, Address } = req.body;
   const hashed_pass = await bcrypt.hash(Password, 10);
@@ -17,20 +17,21 @@ const registerOwner = async_handler(async (req, res) => {
 });
 
 const signOwner = async_handler(async (req, res, next) => {
-  const { Username, Password } = req.body;
-  if (!Username || !Password) {
+  const { Email, Password } = req.body;
+  if (!Email || !Password) {
     res.status(400);
     throw new Error("Please enter all the fields");
   } 
   else {
-    const owner_new = await owner.findOne({ Username });
+    const owner_new = await owner.findOne({ Email });
     if (owner_new && (await bcrypt.compare(Password, owner_new.Password))) {
       access_token = jwt.sign(
         {
           user: {
             FullName: owner_new.FullName,
             Username: owner_new.Username,
-            id:owner_new._id
+            id:owner_new._id,
+            Email:owner_new.Email
           },
         },
         process.env.ACCESS_TOKEN,
