@@ -44,7 +44,7 @@ const signCust = async_handler(async (req, res, next) => {
         { expiresIn: "120m" }
       );
       req.headers["authorization"] = `Bearer ${access_token}`;
-      res.send(access_token)
+      console.log(access_token)
       req.url = "/loginCust";
       next();
     } else {

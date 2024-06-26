@@ -53,7 +53,4 @@ const logOwner_in = async_handler(async (req, res) => {
 });
 
 
-
-
-
 module.exports = { registerOwner, signOwner, logOwner_in };

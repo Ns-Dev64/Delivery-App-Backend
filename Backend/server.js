@@ -2,9 +2,11 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const ConnectDb = require("./config/dbconnect");
 const {errorHandler}  = require("./middleware/errorHandler");
-var bodyParser = require('body-parser');
+const cors=require("cors")
+const bodyParser=require("body-parser")
 const {request_otp,verif_otp, reset_pass}=require("./middleware/otpandpassHandler")
 const validate_token = require("./middleware/tokenhandler");
+const {payment_initiation,callbackHandler} = require("./controllers/paymentController");
 ConnectDb();
 const app = express();
 const port = process.env.PORT;
@@ -20,7 +22,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-app.use(bodyParser.json());
+app.use(cors())
 app.use(express.json());
 app.use(errorHandler);
 app.listen(port, () => {
@@ -33,3 +35,5 @@ app.use("/rest",require("./routes/restRoutes"))
 app.use("/requestOtp",validate_token,request_otp)
 app.use("/verifyOtp",validate_token,verif_otp)
 app.use("/resetPass",validate_token,reset_pass)
+app.use("/payment",payment_initiation)
+app.use("/status/",callbackHandler)
