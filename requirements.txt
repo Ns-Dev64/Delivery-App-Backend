@@ -7,3 +7,4 @@ mongoose
 nodemon
 nodemailer
 crypto
+axios
